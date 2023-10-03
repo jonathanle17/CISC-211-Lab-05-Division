@@ -65,47 +65,47 @@ asmFunc:
      * Use it to test the C test code */
     
     /*** STUDENTS: Place your code BELOW this line!!! **************/
-    LDR r2,=dividend
+    LDR r2,=dividend /*stores r0 into dividend */
     STR r0,[r2]
     
-    LDR r3,=divisor
+    LDR r3,=divisor /*stores r1 into divisor */
     STR r1,[r3]
     
-    mov r8,0
+    mov r8,0 /* register for 0 at r8 */
     
-    LDR r5,=quotient
+    LDR r5,=quotient /* stores 0 into quotient */
     STR r8,[r5]
     
-    LDR r6,=mod
+    LDR r6,=mod /* stores 0 into mod */
     STR r8,[r6]
     
-    LDR r7,=we_have_a_problem
+    LDR r7,=we_have_a_problem /* stores 0 into we_have_a_problem */
     STR r8,[r7]
     
-    CMP r0,r8
-    beq error
-    CMP r1,r8
-    beq error
-    CMP r0,r1
-    bmi divisor_greater_dividend
-    b division_by_subtraction
+    CMP r0,r8 /* checks if dividend is 0 */
+    beq error /* if yes */
+    CMP r1,r8 /* checks if divisor is 0 */
+    beq error /* if yes */
+    CMP r0,r1 /* is dividend less than divisor */
+    bmi divisor_greater_dividend /* if yes */
+    b division_by_subtraction /* if not */
     
 error:
     add r8,r8,1
-    STR r8,[r7]
-    LDR r0,=quotient
+    STR r8,[r7] /* stores 1 into we_have_a_problem */
+    LDR r0,=quotient /* address of quotient into r0 */
     b done
     
 division_by_subtraction:
-    add r8,r8,1
-    sub r0,r0,r1
-    CMP r0,r1
-    bmi divisor_greater_dividend
-    b division_by_subtraction
+    add r8,r8,1 /* add 1 to quotient */
+    sub r0,r0,r1 /* subtract dividend by divisor */
+    CMP r0,r1 /*is dividend less than divisor */
+    bmi divisor_greater_dividend /* if yes */
+    b division_by_subtraction /* if not repeat */
     
 divsior_greater_dividend:
-    STR r8,[r5]
-    STR r0,[r6]
+    STR r8,[r5] /* stores quotient value into address of quotient */
+    STR r0,[r6] /* stores dividend after division into mod (remainder) */
     b done 
     
     
