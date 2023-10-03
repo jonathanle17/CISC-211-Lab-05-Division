@@ -65,7 +65,49 @@ asmFunc:
      * Use it to test the C test code */
     
     /*** STUDENTS: Place your code BELOW this line!!! **************/
-
+    LDR r2,=dividend
+    LDR r0,[r2]
+    
+    LDR r3,=divisor
+    LDR r1,[r3]
+    
+    mov r8,0
+    
+    LDR r5,=quotient
+    STR r8,[r5]
+    
+    LDR r6,=mod
+    STR r8,[r6]
+    
+    LDR r7,=we_have_a_problem
+    STR r8,[r7]
+    
+    CMP r0,r8
+    beq error
+    CMP r1,r8
+    beq error
+    CMP r0,r1
+    bmi divisor_greater_dividend
+    b division_by_subtraction
+    
+error:
+    add r8,r8,1
+    STR r8,[r7]
+    LDR r0,=quotient
+    b done
+    
+division_by_subtraction:
+    add r8,r8,1
+    sub r0,r0,r1
+    CMP r0,r1
+    bmi divisor_greater_dividend
+    b division_by_subtraction
+    
+divsior_greater_dividend:
+    STR r8,[r5]
+    STR r0,[r6]
+    b done 
+    
     
     /*** STUDENTS: Place your code ABOVE this line!!! **************/
 
