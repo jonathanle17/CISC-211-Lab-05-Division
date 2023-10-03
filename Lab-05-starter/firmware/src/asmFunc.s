@@ -66,10 +66,10 @@ asmFunc:
     
     /*** STUDENTS: Place your code BELOW this line!!! **************/
     LDR r2,=dividend
-    LDR r0,[r2]
+    STR r0,[r2]
     
     LDR r3,=divisor
-    LDR r1,[r3]
+    STR r1,[r3]
     
     mov r8,0
     
